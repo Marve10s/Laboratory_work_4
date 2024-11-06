@@ -1,0 +1,21 @@
+name: SQL Linter
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  SQLLinter:
+    runs-on: ubuntu-latest
+    steps:
+      # Clone the repository with the code
+      - name: Checkout Code in Repository
+        uses: actions/checkout@v3
+
+      # Run SQL linter to check SQL code syntax
+      - name: Start SQL Linter
+        run: |
+          # Install sqlfluff, a tool for checking SQL code quality
+          pip install sqlfluff
+          # Run sqlfluff to lint the DataSchema.sql file using the MySQL dialect
+          sqlfluff lint $GITHUB_WORKSPACE/DataSchema.sql --dialect mysql
